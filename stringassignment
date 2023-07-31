@@ -1,0 +1,82 @@
+1.Valid Palindrome
+class Solution {
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while(left < right) {
+            while(left < right && !Character.isLetterOrDigit(s.charAt(left))) 
+                left++;
+            while(right > left && !Character.isLetterOrDigit(s.charAt(right))) 
+                right--;
+            if(Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) 
+                return false;
+            left++;
+            right--;
+        }
+        return true;
+
+    }
+}
+2.Roman to Integer
+int romanToInt(char * s){
+int value[100];
+    value['I'] = 1;
+    value['V'] = 5;
+    value['X'] = 10;
+    value['L'] = 50;
+    value['C'] = 100;
+    value['D'] = 500;
+    value['M'] = 1000;
+    value['\0'] = 0;
+    int sum = 0;
+    for(int i = 0; s[i] !='\0'; i++){
+        if(value[s[i]] < value[s[i + 1]])
+            sum = sum - value[s[i]];
+        else
+            sum += value[s[i]];
+    }
+    return sum;
+}
+3.Longest common prefix
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+     Arrays.sort(strs);
+        String s1 = strs[0];
+        String s2 = strs[strs.length-1];
+        int idx = 0;
+        while(idx < s1.length() && idx < s2.length()){
+            if(s1.charAt(idx) == s2.charAt(idx)){
+                idx++;
+            } 
+            else {
+                break;
+            }
+        }
+        return s1.substring(0, idx);   
+    }
+}
+4.valid anagram
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length()!= t.length()) return false;
+        HashMap<Character, Integer> map1= new HashMap<>();
+        HashMap<Character, Integer> map2= new HashMap<>();
+         for(int i=0; i<s.length();i++){
+             if(map1.containsKey(s.charAt(i))) map1.put(s.charAt(i),map1.get(s.charAt(i))+1);
+             else map1.put(s.charAt(i),1);
+
+        }
+         for(int i=0; i<t.length();i++){
+             if(map2.containsKey(t.charAt(i))) map2.put(t.charAt(i),map2.get(t.charAt(i))+1);
+             else map2.put(t.charAt(i),1);
+
+        }
+
+        for(char k: map1.keySet()){
+            if(!map1.get(k).equals(map2.get(k))) return false; 
+        }
+
+        return true;
+        
+    }
+}
